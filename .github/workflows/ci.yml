@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Compile package
+        run: python -m py_compile src/squares_in_squares/*.py
+      - name: Generate and validate smoke submission
+        run: |
+          python -m squares_in_squares.generate_submission --output /tmp/smoke.csv --max-n 25
+          python -m squares_in_squares.validate_submission /tmp/smoke.csv --max-n 25

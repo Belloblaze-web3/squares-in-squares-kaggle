@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "squares-in-squares"
+version = "0.1.0"
+description = "Validated Kaggle solver for packing unit squares"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+sis-generate = "squares_in_squares.generate_submission:main"
+sis-validate = "squares_in_squares.validate_submission:main"
+sis-benchmark = "squares_in_squares.benchmark:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
